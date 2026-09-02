@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shop Hoàng Nam — Admin</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f3f3f3;color:#202020}.top{background:#171717;color:#fff;padding:18px 5%;display:flex;justify-content:space-between;align-items:center}.top h1{margin:0;font-size:22px}.btn{border:0;border-radius:9px;padding:11px 15px;font-weight:800;cursor:pointer}.dark{background:#222;color:#fff}.wrap{max-width:1400px;margin:auto;padding:24px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.stat,.panel{background:#fff;border:1px solid #ddd;border-radius:16px;padding:20px;box-shadow:0 4px 18px #0000000d}.stat b{display:block;font-size:28px;margin-top:8px}.tabs{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}.tabs button{border:0;border-radius:10px;padding:12px 16px;font-weight:800;cursor:pointer;background:#e5e5e5}.tabs button.active{background:#222;color:#fff}.panel{display:none}.panel.active{display:block}.table{width:100%;border-collapse:collapse}.table th,.table td{padding:12px;border-bottom:1px solid #eee;text-align:left}.login{max-width:430px;margin:100px auto;background:#fff;padding:30px;border-radius:20px;box-shadow:0 10px 45px #0002}.login input{width:100%;padding:14px;margin:8px 0;border:1px solid #ccc;border-radius:10px}.login button{width:100%;padding:14px;background:#222;color:#fff;border:0;border-radius:10px;font-weight:900;border-radius:10px}@media(max-width:800px){.stats{grid-template-columns:repeat(2,1fr)}}@media(max-width:520px){.stats{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const root=document.getElementById('root');
+function login(){const u=document.getElementById('u').value,p=document.getElementById('p').value;if(u&&p){localStorage.setItem('hn_admin','1');render()}else alert('Nhập tài khoản và mật khẩu.')}
+function logout(){localStorage.removeItem('hn_admin');location.reload()}
+function tab(id,b){document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');b.classList.add('active')}
+function render(){
+if(!localStorage.getItem('hn_admin')){
+root.innerHTML='<div class="login"><h2>🔐 Shop Hoàng Nam Admin</h2><p>Trang quản trị riêng của Shop Hoàng Nam.</p><input id="u" placeholder="Tài khoản Admin"><input id="p" type="password" placeholder="Mật khẩu"><button onclick="login()">ĐĂNG NHẬP</button></div>';return}
+root.innerHTML='<header class="top"><h1>🛠️ Shop Hoàng Nam — Admin</h1><button class="btn" onclick="logout()">Đăng xuất</button></header><main class="wrap"><div class="stats"><div class="stat">👥 Khách hàng<b>0</b></div><div class="stat">📦 Đơn hàng<b>0</b></div><div class="stat">💳 Nạp tiền chờ duyệt<b>0</b></div><div class="stat">💰 Doanh thu<b>0 đ</b></div></div><div class="tabs"><button class="active" onclick="tab(\'users\',this)">👥 Khách hàng</button><button onclick="tab(\'orders\',this)">📦 Đơn hàng</button><button onclick="tab(\'payments\',this)">💳 Nạp tiền</button><button onclick="tab(\'services\',this)">🎮 Dịch vụ</button></div><section id="users" class="panel active"><h2>Quản lý khách hàng</h2><table class="table"><tr><th>Tài khoản</th><th>Email</th><th>Số dư</th><th>Trạng thái</th></tr><tr><td colspan="4">Chưa có dữ liệu.</td></tr></table></section><section id="orders" class="panel"><h2>Quản lý đơn hàng</h2><p>Đơn hàng của khách sẽ hiển thị tại đây sau khi kết nối hệ thống dữ liệu.</p></section><section id="payments" class="panel"><h2>Duyệt nạp tiền</h2><p>Quản lý yêu cầu nạp thẻ và nạp ngân hàng.</p></section><section id="services" class="panel"><h2>Quản lý dịch vụ</h2><p>Quản lý danh mục, giá và trạng thái dịch vụ.</p></section></main>'}
+render();
+</script>
+</body></html>
